@@ -1,0 +1,91 @@
+/*320px.
+480px.
+600px.
+768px.
+900px.
+1024px.
+1200px.*/
+.error-card{
+    margin-top: 50%;
+    text-align: center;
+}
+.error-icon{
+    height: 100px;
+    width: 100px;
+}
+ion-content{
+    
+      --background: none;
+      // background-image: linear-gradient(to bottom right, #f4b400 , #db4437);
+      background: url('../../../assets/images/bg.jpg'); 
+      background-position: center top;
+      background-repeat: no-repeat;
+      background-repeat: no-repeat;
+      background-size: 100% 100%;
+      
+    @media (max-width: 576px) {
+
+        .error-card{
+            margin-top: 20%;
+            text-align: center;
+        }
+        ion-card-content {
+            font-size: 2rem !important;
+        }
+    }
+ 
+    @media (max-width: 820px) {
+        .error-card{
+            margin-top: 20%;
+            text-align: center;
+        }
+        .mobile-fab {
+            display: none;
+        }
+    }
+ 
+    @media (min-width: 768px) {
+        .error-card{
+            margin-top: 10%;
+            text-align: center;
+        }
+        .web-fab {
+            display: none;
+        }
+    }
+
+    @media (min-width: 1060px) {
+        ion-button{
+            width: 30%;
+        }
+        .error-card{
+            margin-top: 0%;
+            text-align: center;
+        }
+        .web-fab {
+            display: none;
+        }
+    }
+    // --background: linear-gradient(to bottom, #04619f 0%, #000000 74%) !important;
+    // background-image: linear-gradient(147deg, #000000 0%, #04619f 74%) !important;
+    // background-color: #000000;
+    // background-image: linear-gradient(147deg, #000000 0%, #04619f 74%);
+}
+
+.home-item-css{
+    --background: transparent;
+    color: white;
+}
+.search-item-css{
+    --background: transparent;
+    color: white;
+    box-shadow: 0px 0px 50px 18px #0ff;
+    border-radius: 32px;
+}
+.header-row{
+    background: #80808052;
+    border-radius: 2px;
+}
+.url-input-search-css{
+    color: white;
+}

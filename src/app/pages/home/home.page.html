@@ -1,0 +1,151 @@
+<ion-content *ngIf="!httpErrorCheck">
+  <ion-grid>
+
+    <ion-row class='header-row'>
+      <ion-col> 
+        <ion-item lines='none' class='home-item-css'>
+          <ion-icon name='Home' color="warning"></ion-icon>
+          <ion-label>HOME</ion-label>
+        </ion-item>
+      </ion-col>
+      <ion-col>
+        <ion-item lines='none' class='search-item-css'>
+            <ion-icon name="logo-firefox"></ion-icon>
+
+          <ion-input type='text' name='urlSearchtext' class='url-input-search-css' placeholder='Enter Address'> 
+          </ion-input>
+
+          <ion-fab-button size='small'>
+            <ion-icon name="arrow-forward-circle"></ion-icon>
+          </ion-fab-button>
+        </ion-item>
+      </ion-col>
+      <ion-col></ion-col>
+    </ion-row>
+
+
+  </ion-grid>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!-- <ion-fab right bottom class="web-fab">
+    <button ion-fab icon-only color="primary" (click)="checkPlatform()">
+      <ion-icon name="help"></ion-icon>
+    </button>
+   </ion-fab>
+   
+   <ion-fab right top edge class="mobile-fab">
+    <button ion-fab icon-only color="primary" (click)="checkPlatform()">
+      <ion-icon name="help"></ion-icon>
+    </button>
+   </ion-fab> -->
+
+  <!-- <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-segment scrollable>
+          <ion-segment-button>
+            <ion-icon color='warning' name="home"></ion-icon>
+          </ion-segment-button>
+          <ion-segment-button checked>
+            <ion-icon color='warning' name="heart"></ion-icon>
+          </ion-segment-button>
+          <ion-segment-button>
+            <ion-icon color='warning' name="pin"></ion-icon>
+          </ion-segment-button>
+          <ion-segment-button>
+            <ion-icon color='warning' name="star"></ion-icon>
+          </ion-segment-button>
+          <ion-segment-button>
+            <ion-icon color='warning' name="call"></ion-icon>
+          </ion-segment-button>
+          <ion-segment-button>
+            <ion-icon color='warning' name="globe"></ion-icon>
+          </ion-segment-button>
+          <ion-segment-button>
+            <ion-icon color='warning' name="basket"></ion-icon>
+          </ion-segment-button>
+        </ion-segment>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col col-12>
+        <ion-searchbar class="searchar-bar" animated></ion-searchbar>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col *ngFor="let user of users" col-12 col-xl-2 col-lg-3 col-md-4>
+        <ion-card>
+          <ion-item>
+            <ion-avatar item-start>
+              <img [src]="user.picture.medium">
+            </ion-avatar>
+            <h2 text-capitalize>{{ user.name?.first }} {{ user.name?.last }}</h2>
+          </ion-item>
+          <ion-card-content>
+            Bacon ipsum dolor amet salami prosciutto ham hock, strip steak buffalo ribeye pork chop. Beef ribs tenderloin tail shoulder.
+            Spare ribs ham shoulder brisket rump hamburger. Pork belly kevin shoulder prosciutto ribeye pork chop chicken
+            strip steak pig.
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid> -->
+  
+ </ion-content>
+
+ 
+ <ion-content *ngIf="httpErrorCheck">
+   <ion-card class="error-card">
+     <ion-card-header>
+       <ion-icon class="error-icon" name='wifi' color='dark'></ion-icon>
+     </ion-card-header>
+     <ion-card-content>
+       <ion-text>
+         {{httpErrorMsg}}
+       </ion-text>
+       <ion-button expand='full' shape='round' color='danger' (click)="reload()">
+         <ion-icon name='reload'>
+
+         </ion-icon>
+          Try again
+       </ion-button>
+     </ion-card-content>
+   </ion-card>
+ </ion-content>

@@ -1,0 +1,52 @@
+<ion-content fullscreen>
+</ion-content>
+
+
+<ion-footer translucent='true'>
+  <ion-grid>
+    <div class="swiper-div"></div>
+    <ion-row class='footer'>
+      <ion-col >
+            <div class="div-box">
+              <div (click)="goback()" class="div-box-button" fill='clear'>
+                <ion-icon name="arrow-back"></ion-icon>
+              </div>
+            </div>
+      </ion-col>
+      
+      <ion-col>
+        <div class="div-box">
+          <div [routerLink] = "['/','messaging']" class="div-box-button" fill='clear'>
+            <ion-icon name="arrow-forward"></ion-icon>
+          </div>
+        </div>
+      </ion-col>
+
+      <ion-col class='search-icon'>
+        <div class="div-box-search">
+          <div [routerLink] = "['/','home']" class="div-box-button-search" fill='clear'>
+            <ion-icon name='search'> </ion-icon>
+          </div>
+        </div>
+      </ion-col>
+
+      <ion-col>
+        <div class="div-box">
+          <div [routerLink] = "['/','manage-requests']" class="div-box-button" fill='clear'>
+            <ion-icon name="settings"></ion-icon>
+          </div>
+        </div>
+      </ion-col>
+
+      <ion-col>
+        <div class="div-box">
+          <div [routerLink] = "['/','profile']" class="div-box-button" fill='clear'>
+            <ion-icon name="menu"></ion-icon>
+          </div>
+        </div>
+      </ion-col>
+  
+  </ion-row>
+  </ion-grid>
+  
+</ion-footer>

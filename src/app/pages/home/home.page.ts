@@ -1,25 +1,44 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
 import { NavController, Platform, AlertController, LoadingController } from '@ionic/angular';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-
+import { InAppBrowser, InAppBrowserOptions } from '@ionic-native/in-app-browser/ngx';
+import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-home',
   templateUrl: './home.page.html',
   styleUrls: ['./home.page.scss'],
 })
 export class HomePage implements OnInit {
-
+  options: InAppBrowserOptions;
   users: any;
   httpErrorCheck = false;
   httpErrorMsg: any;
+  urlSearchtext: any;
 
   constructor(public navCtrl: NavController,
               private httpClient: HttpClient,
               private plt: Platform,
               private alertCtrl: AlertController,
-              private loadingCtrl: LoadingController) {
+              private loadingCtrl: LoadingController,
+              private iab: InAppBrowser,
+              private screen: ScreenOrientation,
+              private router: Router) {
               this.loadBasicData();
+              // access current orientation
+              console.log('Orientation is ' + this.screen.ORIENTATIONS.ANY);
+
+  }
+  // ionViewWillEnter() {
+  //   this.screenOrientation();
+  // }
+
+  screenOrientation() {
+    let alert =  this.alertCtrl.create({
+      message: 'Display Screen is : ' + this.screen.type,
+      buttons: ['OK']
+    });
+    alert.then(malert => { malert.present(); } );
   }
   loadBasicData() {
     const loading =  this.loadingCtrl.create({
@@ -39,7 +58,7 @@ export class HomePage implements OnInit {
       });
     }, (error: HttpErrorResponse) => {
       loading.then(ld => {
-        ld.dismiss(); 
+        ld.dismiss();
       });
       this.httpErrorCheck = true;
       this.httpErrorMsg = error.message + ' Please Check your internet Connection!';
@@ -50,6 +69,12 @@ export class HomePage implements OnInit {
     this.loadBasicData();
   }
   ngOnInit() {
+    if(this.screen.onChange) {
+      this.screenOrientation();
+    }
+  }
+  nfOnChange() {
+    this.screenOrientation();
   }
   async checkPlatform() {
     let alert = await this.alertCtrl.create({
@@ -64,5 +89,19 @@ export class HomePage implements OnInit {
       console.log(this.plt.platforms());
       // Do stuff inside the regular browser
     }
+  }
+  doSearch() {
+    this.navCtrl.navigateForward('results-view');
+    this.router.navigate(['/results-view', this.urlSearchtext]);
+  }
+
+  go(url) {
+    const target = '_self';
+    this.options = {
+      zoom: 'yes'
+    };
+    // const options = 'location=yes,hidden=yes,beforeload=yes';
+    // this.iab.create('www.google.com', '_blank');
+    const refresnes = this.iab.create('http://' + url , '_blank' , this.options);
   }
 }

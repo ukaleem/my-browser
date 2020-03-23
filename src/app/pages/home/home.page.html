@@ -1,77 +1,116 @@
 <ion-content *ngIf="!httpErrorCheck">
+  <form #form='ngForm' >
   <ion-grid>
-
     <ion-row class='header-row'>
-      <ion-col> 
-        <ion-item lines='none' class='home-item-css'>
-          <ion-icon name='Home' color="warning"></ion-icon>
-          <ion-label>HOME</ion-label>
-        </ion-item>
-      </ion-col>
-      <ion-col>
+      <ion-col col-12 col-xl-2 col-lg-3 col-md-4>
         <ion-item lines='none' class='search-item-css'>
-            <ion-icon name="logo-firefox"></ion-icon>
-
-          <ion-input type='text' name='urlSearchtext' class='url-input-search-css' placeholder='Enter Address'> 
+            <ion-icon class="search-icon" color='' name="search"></ion-icon>
+        
+          <ion-input required type='text' [(ngModel)]='urlSearchtext' 
+          name='urlSearchtext' 
+          class='url-input-search-css' 
+          placeholder='Enter Address'
+          ngModel
+          #urlSearchCtrl = 'ngModel'> 
           </ion-input>
 
-          <ion-fab-button size='small'>
-            <ion-icon name="arrow-forward-circle"></ion-icon>
+          <ion-fab-button [disabled] = '!form.valid' (click)='doSearch()' class='search-button' fill='clear' size='small'>
+            <ion-icon size='small' name="arrow-forward"></ion-icon>
           </ion-fab-button>
+    
         </ion-item>
       </ion-col>
-      <ion-col></ion-col>
     </ion-row>
-
-
   </ion-grid>
+</form>
+
+  <div style="padding: 20px 20px 20px 20px;">
+    <ion-grid>
+      <ion-row class='quick-url-card' >
+        <ion-col>
+          <ion-card (click)='go("www.google.com")'>
+            <ion-card-content>
+              <ion-avatar>
+                <img src="../../../assets/images/kisspng-google-logo-google-search-google-doodle-circular-economy-5b2082fe6d9843.2262246515288573424489.png">
+              </ion-avatar>
+
+              <ion-text>Google</ion-text>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+
+        <ion-col>
+          <ion-card (click)="go('www.facebook.com')">
+            <ion-card-content>
+              <ion-avatar>
+                <img src="../../../assets/images/1789596.png">
+              </ion-avatar>
+
+              <ion-text>Facebook</ion-text>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
 
 
+        <ion-col>
+          <ion-card (click)="go('www.twitter.com')">
+            <ion-card-content>
+              <ion-avatar>
+                <img src="../../../assets/images/27-273507_twitter-round-logo-transparent-clipart-computer-icons-circle.png">
+              </ion-avatar>
+
+              <ion-text>Twitter</ion-text>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+
+        <ion-col>
+          <ion-card (click)="go('www.youtube.com')">
+            <ion-card-content>
+              <ion-avatar>
+                <img height="48px" width="48px" src="../../../assets/images/transparent-youtube-play-button-20.png">
+              </ion-avatar>
+
+              <ion-text>Youtube</ion-text>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
 
 
+      <!-- <ion-row>
+        <ion-col *ngFor="let user of users" col-12 col-xl-2 col-lg-3 col-md-4>
+          <ion-card>
+            <ion-item>
+              <ion-avatar item-start>
+                <img [src]="user.picture.medium">
+              </ion-avatar>
+              <h2 text-capitalize>{{ user.name?.first }} {{ user.name?.last }}</h2>
+            </ion-item>
+            <ion-card-content>
+              Bacon ipsum dolor amet salami prosciutto ham hock, strip steak buffalo ribeye pork chop. Beef ribs tenderloin tail shoulder.
+              Spare ribs ham shoulder brisket rump hamburger. Pork belly kevin shoulder prosciutto ribeye pork chop chicken
+              strip steak pig.
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row> -->
+    </ion-grid>
+  </div>
 
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+  <ion-fab-button  (click)="checkPlatform()" class='search-button' fill='clear' size='small'>
+    <ion-icon name="help"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
 
+<!-- <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+  <ion-fab-button>
+    <ion-icon name="arrow-forward-circle"></ion-icon>
+  </ion-fab-button>
+</ion-fab> -->
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  <!-- <ion-fab right bottom class="web-fab">
-    <button ion-fab icon-only color="primary" (click)="checkPlatform()">
-      <ion-icon name="help"></ion-icon>
-    </button>
-   </ion-fab>
    
-   <ion-fab right top edge class="mobile-fab">
-    <button ion-fab icon-only color="primary" (click)="checkPlatform()">
-      <ion-icon name="help"></ion-icon>
-    </button>
-   </ion-fab> -->
 
   <!-- <ion-grid>
     <ion-row>
@@ -108,7 +147,7 @@
       </ion-col>
     </ion-row>
 
-    <ion-row>
+   <ion-row>
       <ion-col *ngFor="let user of users" col-12 col-xl-2 col-lg-3 col-md-4>
         <ion-card>
           <ion-item>
@@ -134,16 +173,14 @@
  <ion-content *ngIf="httpErrorCheck">
    <ion-card class="error-card">
      <ion-card-header>
-       <ion-icon class="error-icon" name='wifi' color='dark'></ion-icon>
+       <ion-icon class="error-icon" name='wifi' style="color: rgb(255, 255, 255,1);"></ion-icon>
      </ion-card-header>
      <ion-card-content>
        <ion-text>
          {{httpErrorMsg}}
        </ion-text>
        <ion-button expand='full' shape='round' color='danger' (click)="reload()">
-         <ion-icon name='reload'>
-
-         </ion-icon>
+         <ion-icon name='reload'></ion-icon>
           Try again
        </ion-button>
      </ion-card-content>

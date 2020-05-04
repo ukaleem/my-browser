@@ -21,17 +21,12 @@ export class ResultsViewPage implements OnInit {
     subscription: any ;
 
   exitApp() {
-    navigator['app'].exitApp();
   }
 
   ionVIewDidEnter() {
-    this.subscription = this.platform.backButton.subscribe(async () => {
-      navigator['app'].exitApp();
-    });
   }
 
   ionViewWillLeave() {
-    this.subscription.unsubscribe();
   }
 
   ngOnInit() {

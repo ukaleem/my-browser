@@ -1,0 +1,62 @@
+<div>
+  <div>
+    <ion-icon class="my-icon" name="add-circle"></ion-icon>
+  </div>
+</div>
+<ion-grid>
+  <ion-row>
+    <ion-col>
+      <form #form="ngForm" (ngSubmit)="saveUrl()">
+        <ion-item>
+          <ion-label position="floating" name="urlName"> URL NAME </ion-label>
+          <ion-input
+            clear-input
+            focused
+            type="text"
+            [(ngModel)]="urlName"
+            minlength="3"
+            required
+            ngModel
+            #urlNameCtrl = 'ngModel'
+            name="urlName"
+            placeholder="eg. google"
+          ></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating" name="url"> URL </ion-label>
+          <ion-input
+            clear-input
+            type="text"
+            [(ngModel)]="url"
+            minlength="6"
+            required
+            ngModel
+            #urlCtrl = 'ngModel'
+            name="url"
+            placeholder="eg. www.google.com"
+          ></ion-input>
+        </ion-item>
+        <ion-button
+          [disabled]="!form.valid"
+          shape="round"
+          expand="block"
+          type="submit"
+          color="success"
+        >
+          Save
+          <ion-icon slot="start" name="create"></ion-icon>
+        </ion-button>
+        <ion-button
+          shape="round"
+          expand="block"
+          (click)="closePopover()"
+          color="danger"
+        >
+          Close
+          <ion-icon slot="start" name="close-circle"></ion-icon>
+        </ion-button>
+      </form>
+    </ion-col>
+  </ion-row>
+</ion-grid>

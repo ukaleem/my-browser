@@ -1,118 +1,176 @@
-<ion-content *ngIf="!httpErrorCheck">
-  <form #form='ngForm' >
-  <ion-grid>
-    <ion-row class='header-row'>
-      <ion-col col-12 col-xl-2 col-lg-3 col-md-4>
-        <ion-item lines='none' class='search-item-css'>
-            <ion-icon class="search-icon" color='' name="search"></ion-icon>
-        
-          <ion-input required type='text' [(ngModel)]='urlSearchtext' 
-          name='urlSearchtext' 
-          class='url-input-search-css' 
-          placeholder='Enter Address'
-          ngModel
-          #urlSearchCtrl = 'ngModel'> 
-          </ion-input>
-
-          <ion-fab-button [disabled] = '!form.valid' (click)='doSearch()' class='search-button' fill='clear' size='small'>
-            <ion-icon size='small' name="arrow-forward"></ion-icon>
-          </ion-fab-button>
-    
-        </ion-item>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-</form>
-
-  <div style="padding: 20px 20px 20px 20px;">
+<div *ngIf="loadingMode" class="spinner">
+  <div class="rect1"></div>
+  <div class="rect2"></div>
+  <div class="rect3"></div>
+  <div class="rect4"></div>
+  <div class="rect5"></div>
+</div>
+<ion-content>
+  <form #form="ngForm">
     <ion-grid>
-      <ion-row class='quick-url-card' >
-        <ion-col>
-          <ion-card (click)='go("www.google.com")'>
-            <ion-card-content>
-              <ion-avatar>
-                <img src="../../../assets/images/kisspng-google-logo-google-search-google-doodle-circular-economy-5b2082fe6d9843.2262246515288573424489.png">
-              </ion-avatar>
+      <div class="container">
+        <ion-row class="header-row">
+          <ion-col>
+            <ion-item lines="none" class="search-item-css">
+              <ion-icon class="search-icon" color="" name="search"></ion-icon>
 
-              <ion-text>Google</ion-text>
-            </ion-card-content>
-          </ion-card>
-        </ion-col>
+              <ion-input
+                required
+                autocomplete='on'
+                autocorrect='on'
+                autofocus='true'
+                enterkeyhint="go"
+                spellcheck='true'
+                type="text"
+                [(ngModel)]="urlSearchtext"
+                name="urlSearchtext"
+                class="url-input-search-css"
+                placeholder="Enter Address"
+                ngModel
+                #urlSearchCtrl="ngModel"
+                (ionBlur) = 'doSearch()'
+              >
+              </ion-input>
 
-        <ion-col>
-          <ion-card (click)="go('www.facebook.com')">
-            <ion-card-content>
-              <ion-avatar>
-                <img src="../../../assets/images/1789596.png">
-              </ion-avatar>
-
-              <ion-text>Facebook</ion-text>
-            </ion-card-content>
-          </ion-card>
-        </ion-col>
-
-
-        <ion-col>
-          <ion-card (click)="go('www.twitter.com')">
-            <ion-card-content>
-              <ion-avatar>
-                <img src="../../../assets/images/27-273507_twitter-round-logo-transparent-clipart-computer-icons-circle.png">
-              </ion-avatar>
-
-              <ion-text>Twitter</ion-text>
-            </ion-card-content>
-          </ion-card>
-        </ion-col>
-
-        <ion-col>
-          <ion-card (click)="go('www.youtube.com')">
-            <ion-card-content>
-              <ion-avatar>
-                <img height="48px" width="48px" src="../../../assets/images/transparent-youtube-play-button-20.png">
-              </ion-avatar>
-
-              <ion-text>Youtube</ion-text>
-            </ion-card-content>
-          </ion-card>
-        </ion-col>
-      </ion-row>
-
-
-      <!-- <ion-row>
-        <ion-col *ngFor="let user of users" col-12 col-xl-2 col-lg-3 col-md-4>
-          <ion-card>
-            <ion-item>
-              <ion-avatar item-start>
-                <img [src]="user.picture.medium">
-              </ion-avatar>
-              <h2 text-capitalize>{{ user.name?.first }} {{ user.name?.last }}</h2>
+              <ion-fab-button
+                [disabled]="!form.valid"
+                (click)="doSearch()"
+                class="search-button"
+                fill="clear"
+                size="small"
+              >
+                <ion-icon size="small" name="arrow-forward"></ion-icon>
+              </ion-fab-button>
             </ion-item>
-            <ion-card-content>
-              Bacon ipsum dolor amet salami prosciutto ham hock, strip steak buffalo ribeye pork chop. Beef ribs tenderloin tail shoulder.
-              Spare ribs ham shoulder brisket rump hamburger. Pork belly kevin shoulder prosciutto ribeye pork chop chicken
-              strip steak pig.
-            </ion-card-content>
-          </ion-card>
-        </ion-col>
-      </ion-row> -->
-    </ion-grid>
-  </div>
+          </ion-col>
+        </ion-row>
+      
 
-  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
-  <ion-fab-button  (click)="checkPlatform()" class='search-button' fill='clear' size='small'>
-    <ion-icon name="help"></ion-icon>
-  </ion-fab-button>
-</ion-fab>
+        <!-- <ion-row>
+          <ion-col size='4'>
+            <div class="card">
+              <div class="face face1">
+                <div class="content">
+                  <img src="fasion.jpg" />
+                  <h3>design</h3>
+                </div>
+              </div>
+              <div class="face face2">
+                <div class="content ">
+                  <p>
+                    This iS me you can never be make me down never dqsl
+                    dhqlwsjwd
+                  </p>
+                  <a href="">read more</a>
+                </div>
+              </div>
+            </div>
+          </ion-col>
 
-<!-- <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+          <ion-col size='4'>
+            <div class="card">
+              <div class="face face1">
+                <div class="content">
+                  <img src="code.jpg" />
+                  <h3>Code</h3>
+                </div>
+              </div>
+              <div class="face face2">
+                <div class="content ">
+                  <p>
+                    this ie me you can never be make me down never dqsl
+                    dhqlwsjwd
+                  </p>
+                  <a href="">read more</a>
+                </div>
+              </div>
+            </div>
+          </ion-col>
+
+          <ion-col size='4'>
+            <div class="card">
+              <div class="face face1">
+                <div class="content">
+                  <img src="heart.png" />
+                  <h3>Launchs</h3>
+                </div>
+              </div>
+              <div class="face face2">
+                <div class="content ">
+                  <p>
+                    this ie me you can never be make me down never dqsl
+                    dhqlwsjwd
+                  </p>
+                  <a href="">read more</a>
+                </div>
+              </div>
+            </div>
+          </ion-col>
+        </ion-row> -->
+
+        <ion-row class="quick-url-card">
+          <ion-col size-lg="3" *ngFor="let url of savedUrls" >
+            <ion-card (click)='go(url.url)'>
+              <ion-card-content>
+                <ion-item lines='none'>
+                  <ion-icon size='small' slot='end' name='ellipsis-vertical'></ion-icon>
+                </ion-item>
+                <ion-avatar>
+                  <img
+                    src="{{url.image}}"
+                  />
+                </ion-avatar>
+
+                <ion-text>{{url.name}}</ion-text>
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
+
+          <ion-col size-lg="3">
+            <ion-card (click)="addNewUrl()"> 
+              <ion-card-content>
+                <ion-item lines='none'>
+                  <ion-icon slot='end'></ion-icon>
+                </ion-item>
+                <ion-avatar>
+                  <ion-icon
+                  style='width: 50px;
+                  height: 50px;'
+                    name="add-circle"
+                  ></ion-icon>
+                </ion-avatar>
+
+                <ion-text>ADD URL</ion-text>
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
+        </ion-row>
+
+        <!-- <ion-row>
+            <ion-col *ngFor="let user of users" col-12 col-xl-2 col-lg-3 col-md-4>
+              <ion-card>
+                <ion-item>
+                  <ion-avatar item-start>
+                    <img [src]="user.picture.medium">
+                  </ion-avatar>
+                  <h2 text-capitalize>{{ user.name?.first }} {{ user.name?.last }}</h2>
+                </ion-item>
+                <ion-card-content>
+                  Bacon ipsum dolor amet salami prosciutto ham hock, strip steak buffalo ribeye pork chop. Beef ribs tenderloin tail shoulder.
+                  Spare ribs ham shoulder brisket rump hamburger. Pork belly kevin shoulder prosciutto ribeye pork chop chicken
+                  strip steak pig.
+                </ion-card-content>
+              </ion-card>
+            </ion-col>
+          </ion-row> -->
+
+        <!-- <ion-fab vertical="bottom" horizontal="end" slot="fixed">
   <ion-fab-button>
     <ion-icon name="arrow-forward-circle"></ion-icon>
   </ion-fab-button>
 </ion-fab> -->
 
-   
-
-  <!-- <ion-grid>
+        <!-- <ion-grid>
     <ion-row>
       <ion-col>
         <ion-segment scrollable>
@@ -166,23 +224,35 @@
     </ion-row>
 
   </ion-grid> -->
-  
- </ion-content>
+      </div>
+    </ion-grid>
+  </form>
 
- 
- <ion-content *ngIf="httpErrorCheck">
-   <ion-card class="error-card">
-     <ion-card-header>
-       <ion-icon class="error-icon" name='wifi' style="color: rgb(255, 255, 255,1);"></ion-icon>
-     </ion-card-header>
-     <ion-card-content>
-       <ion-text>
-         {{httpErrorMsg}}
-       </ion-text>
-       <ion-button expand='full' shape='round' color='danger' (click)="reload()">
-         <ion-icon name='reload'></ion-icon>
-          Try again
-       </ion-button>
-     </ion-card-content>
-   </ion-card>
- </ion-content>
+  <!-- <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    
+  </ion-fab> -->
+
+  <ion-fab  horizontal="end" vertical="bottom" slot="fixed">
+    <ion-fab-button
+      class="search-button"
+      fill="clear"
+      size="small"
+    >
+      <ion-icon name="help"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-list side="start">
+      <ion-fab-button (click)="checkPlatform()" color="light">
+        <ion-icon name="desktop"></ion-icon>
+      </ion-fab-button>
+      <!-- <ion-fab-button color="light">
+        <ion-icon name="share-social"></ion-icon>
+      </ion-fab-button> -->
+      <!-- <ion-fab-button (click)="exit()" color="light">
+        <ion-icon name="settings"></ion-icon>
+      </ion-fab-button> -->
+      <!-- <ion-fab-button (click)="exit()" color="light">
+        <ion-icon name="exit"></ion-icon>
+      </ion-fab-button> -->
+    </ion-fab-list>
+  </ion-fab>
+</ion-content>

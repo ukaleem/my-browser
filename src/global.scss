@@ -24,3 +24,20 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+
+ion-popover .popover-wrapper .popover-content{
+    // width: 30%;
+    display: inline-table;
+}
+
+ion-alert .alert-wrapper {
+    // font-variant-caps: all-small-caps !important;
+    border-radius: 10px !important;
+    text-align: center !important;
+    // font-family: cursive !important;
+    background-color: #0a0a09f5 !important;
+    border: 1px solid white !important;
+    color: white;
+    box-shadow: 0px 0px 16px 2px rgba(0, 128, 0, 0.863) !important;
+}

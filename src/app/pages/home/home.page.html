@@ -6,7 +6,7 @@
   <div class="rect5"></div>
 </div>
 <ion-content>
-  <form #form="ngForm">
+  <form [formGroup]='form'>
     <ion-grid>
       <div class="container">
         <ion-row class="header-row">
@@ -15,21 +15,17 @@
               <ion-icon class="search-icon" color="" name="search"></ion-icon>
 
               <ion-input
+              (keyup.enter)="doSearch()"
                 required
-                autocomplete='on'
-                autocorrect='on'
+                autocomplete='true'
+                autocorrect='true'
                 autofocus='true'
                 enterkeyhint="go"
                 spellcheck='true'
                 type="text"
-                [(ngModel)]="urlSearchtext"
-                name="urlSearchtext"
+                formControlName='urlSearchtext'
                 class="url-input-search-css"
-                placeholder="Enter Address"
-                ngModel
-                #urlSearchCtrl="ngModel"
-                (ionBlur) = 'doSearch()'
-              >
+                placeholder="Enter Address">
               </ion-input>
 
               <ion-fab-button
@@ -134,8 +130,8 @@
                 </ion-item>
                 <ion-avatar>
                   <ion-icon
-                  style='width: 50px;
-                  height: 50px;'
+                    style='width: 50px;
+                    height: 50px;'
                     name="add-circle"
                   ></ion-icon>
                 </ion-avatar>
@@ -228,16 +224,8 @@
     </ion-grid>
   </form>
 
-  <!-- <ion-fab slot="fixed" vertical="bottom" horizontal="end">
-    
-  </ion-fab> -->
-
   <ion-fab  horizontal="end" vertical="bottom" slot="fixed">
-    <ion-fab-button
-      class="search-button"
-      fill="clear"
-      size="small"
-    >
+    <ion-fab-button class="search-button" fill="clear" size="small">
       <ion-icon name="help"></ion-icon>
     </ion-fab-button>
     <ion-fab-list side="start">

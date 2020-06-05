@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, ElementRef } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { NavController, Platform, AlertController, LoadingController, PopoverController } from '@ionic/angular';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { InAppBrowser, InAppBrowserOptions } from '@ionic-native/in-app-browser/ngx';
@@ -11,11 +12,14 @@ import { PopoverViewComponent } from '../popover-view/popover-view.component';
   styleUrls: ['./home.page.scss'],
 })
 export class HomePage implements OnInit {
+  form: FormGroup;
   subscription: any;
   options: InAppBrowserOptions;
   urlSearchtext: any;
   loadingMode = false;
   displayAtonces = false;
+
+  ref: any;
 
   savedUrls = [
     {
@@ -38,7 +42,7 @@ export class HomePage implements OnInit {
       url: 'https://twitter.com',
       image: '../../../assets/images/27-273507_twitter-round-logo-transparent-clipart-computer-icons-circle.png',
       name: 'twitter'
-    },
+    }
   ];
 
   constructor(public navCtrl: NavController,
@@ -57,7 +61,7 @@ export class HomePage implements OnInit {
   ionViewWillEnter() {
     this.screen.onChange().subscribe(() => {
       console.log('screen orientation cahnged!!');
-      if (this.displayAtonces=== false) {
+      if (this.displayAtonces === false) {
         this.screenOrientation();
         this.displayAtonces = true;
       }
@@ -73,6 +77,12 @@ export class HomePage implements OnInit {
   }
 
   ngOnInit() {
+    this.form = new FormGroup({
+      urlSearchtext: new FormControl(null, {
+        updateOn: 'change',
+        validators: [Validators.required, Validators.minLength(3)]
+      })
+    });
   }
 
   async addNewUrl() {
@@ -159,29 +169,56 @@ export class HomePage implements OnInit {
   }
 
   doSearch() {
+    console.log(this.form);
+    console.log(this.form.value.urlSearchtext);
+    this.urlSearchtext = this.form.value.urlSearchtext;
     const result = this.validURL(this.urlSearchtext);
     // this.isValidUrl(this.urlSearchtext);
     console.log(result);
     // return;
-    this.loadingMode = true;
-    const target = '_self';
-    this.options = {
-      zoom: 'yes',
-      location: 'yes',
-      clearcache: 'yes',
-      clearsessioncache: 'yes',
-      hardwareback: 'yes',
-      toolbar: 'yes',
-      closebuttoncaption: 'DONE?'
-    };
-    const browser = this.iab.create(
-      encodeURI(result), '_blank' , this.options);
-    this.loadingMode = false;
+    if(result){
+      this.loadingMode = true;
+      const target = '_self';
+      this.options = {
+        zoom: 'yes',
+        location: 'yes',
+        clearcache: 'yes',
+        clearsessioncache: 'yes',
+        hardwareback: 'yes',
+        toolbar: 'yes'
+      };
+      const browser = this.iab.create(
+        encodeURI(result), '_blank' , this.options);
+      this.loadingMode = false;
+
+      // const options = 'location=yes,hidden=yes,clearcache=no,clearsessioncache=no,zoom=yes,hardwareback=no,shouldPauseOnSuspend=yes';
+      // this.ref = cordova.InAppBrowser.open(encodeURI(result), target, options);
+      // this.ref.addEventListener('loadstart', this.loadStartCallBack);
+      // this.ref.addEventListener('loadstop', this.loadStopCallBack);
+      // this.ref.addEventListener('loaderror', this.loadErrorCallBack);
+      // this.loadingMode = false;
+    }
 
     // this.navCtrl.navigateForward('results-view');
     // this.router.navigate(['/results-view', this.urlSearchtext]);
   }
-
+  loadStartCallBack() {
+    this.loadingMode = true;
+  }
+  loadStopCallBack() {
+    if(this.ref !== undefined){
+      this.ref.show();
+    }
+  }
+  loadErrorCallBack() {
+    const alert =  this.alertCtrl.create({
+      message: 'Sorry we cannot open that page. Message from the server.',
+      buttons: ['OK']
+    });
+    alert.then(malert => { malert.present(); } );
+    this.ref.close();
+    this.ref = undefined;
+  }
   ionViewDidEnter() {
 }
 
@@ -222,7 +259,7 @@ export class HomePage implements OnInit {
                     this.subscription = this.plt.backButton.subscribeWithPriority(666666 , () => {
                       if (this.constructor.name === 'HomePage') {
                         if (window.confirm('Are you sure')) {
-                        navigator['app'].exitApp();
+                        navigator.appName['App_Browser_v1'].exitApp();
                         }
                       }
                       console.log(navigator);
